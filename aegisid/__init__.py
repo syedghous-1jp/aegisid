@@ -1,3 +1,3 @@
-"""AegisID - Unclonable Product Identity Toolkit."""
+"""AegisID - clone-resistant product authentication toolkit."""
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"

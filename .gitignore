@@ -1,5 +1,11 @@
 __pycache__/
-*.pyc
+*.py[cod]
 .venv/
+venv/
 .env
 .DS_Store
+# never commit signing keys or databases
+*.pem
+*.db
+*.db-wal
+*.db-shm

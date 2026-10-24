@@ -2,5 +2,21 @@ services:
   aegisid:
     build: .
     ports:
-      - "8000:8000"
+      # Bound to localhost on purpose: put a TLS reverse proxy (Caddy, nginx, ...) in front.
+      - "127.0.0.1:8000:8000"
+    environment:
+      AEGIS_ADMIN_TOKEN: ${AEGIS_ADMIN_TOKEN:?copy .env.example to .env and set AEGIS_ADMIN_TOKEN}
+      AEGIS_RATE_LIMIT: ${AEGIS_RATE_LIMIT:-60}
+    volumes:
+      - aegis-data:/data          # signing key + database survive restarts
     restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+volumes:
+  aegis-data:

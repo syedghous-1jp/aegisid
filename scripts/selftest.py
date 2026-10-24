@@ -1,24 +1,30 @@
-
-"""One-command health check: runs the full test suite + attack simulator.
+"""One-command health check: unit tests + attack simulator.
 
 Run:  python scripts/selftest.py
 """
+
+import re
 import subprocess
 import sys
 
-def main():
-    print(">>> Step 1/2: Running 5-layer test suite...")
-    t = subprocess.run([sys.executable, "-m", "unittest", "discover",
-                        "tests", "-v"], cwd=".")
-    if t.returncode != 0:
-        print("\n✘ TEST SUITE FAILED")
+
+def main() -> int:
+    print(">>> Step 1/2: unit tests")
+    tests = subprocess.run([sys.executable, "-m", "unittest", "discover", "tests"],
+                           capture_output=True, text=True)
+    sys.stdout.write(tests.stdout)
+    sys.stderr.write(tests.stderr)
+    if tests.returncode != 0:
+        print("\n[FAIL] test suite failed")
         return 1
-    print("\n>>> Step 2/2: Running red-team attack simulator...")
-    a = subprocess.run([sys.executable, "scripts/attack_simulator.py"], cwd=".")
-    if a.returncode != 0:
-        print("\n✘ ATTACK SIMULATOR FOUND A GAP")
+    count = re.search(r"Ran (\d+) tests?", tests.stderr)
+    n = count.group(1) if count else "?"
+
+    print("\n>>> Step 2/2: attack simulator")
+    if subprocess.run([sys.executable, "scripts/attack_simulator.py"]).returncode != 0:
+        print("[FAIL] attack simulator found a gap")
         return 1
-    print("✔ AEGISID SELF-TEST PASSED: 14/14 tests + all attacks blocked")
+    print(f"[PASS] self-test: {n} tests passed, all simulated attacks stopped")
     return 0
 
 
