@@ -1,10 +1,12 @@
-    # AegisID — Unclonable Product Identity 🔐
+# AegisID — Unclonable Product Identity 🔐
 
-    **Stop barcode fraud, QR-code copying and product counterfeiting with an open-source, cryptographically unclonable identity system.**
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688) ![Cryptography](https://img.shields.io/badge/Cryptography-Ed25519-purple) ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED) ![Red Team](https://img.shields.io/badge/Red--Team-ALL_ATTACKS_BLOCKED-brightgreen) ![License](https://img.shields.io/badge/License-MIT-green)
 
-    Barcodes and static QR codes can be photocopied, reprinted or swapped in seconds. AegisID replaces them with **short-lived signed tokens** that run through a **5-Layer Verification Gate** — so a copied barcode, a replayed token, or a forged signature is rejected automatically.
+**Stop barcode fraud, QR-code copying and product counterfeiting with an open-source, cryptographically unclonable identity system.**
 
-    ## Why barcode / QR-code systems fail
+Barcodes and static QR codes can be photocopied, reprinted or swapped in seconds. AegisID replaces them with **short-lived signed tokens** that run through a **5-Layer Verification Gate** — so a copied barcode, a replayed token, or a forged signature is rejected automatically.
+
+## Why barcode / QR-code systems fail
 
 | Attack | How it works | Why classic barcodes lose |
 |---|---|---|
